@@ -1,0 +1,14 @@
+export { default as zebella_1 } from "public/images/zebella_1.webp";
+export { default as zebella_2 } from "public/images/zebella_2.webp";
+export { default as zebella_3 } from "public/images/zebella_3.webp";
+export { default as zebella_4 } from "public/images/zebella_4.webp";
+export { default as zebella_5 } from "public/images/zebella_5.webp";
+export { default as zebella_6 } from "public/images/zebella_6.webp";
+export { default as zebella_7 } from "public/images/zebella_7.webp";
+export { default as zebella_8 } from "public/images/zebella_8.webp";
+export { default as zebella_9 } from "public/images/zebella_9.webp";
+export { default as zebella_10 } from "public/images/zebella_10.webp";
+export { default as zebella_11 } from "public/images/zebella_11.webp";
+export { default as zebella_12 } from "public/images/zebella_12.webp";
+export { default as zebella_13 } from "public/images/zebella_13.webp";
+export { default as zebella_14 } from "public/images/zebella_14.webp";
