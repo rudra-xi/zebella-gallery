@@ -1,4 +1,5 @@
 import { useGSAP, gsap, SplitText } from "@/lib/gsap";
+import type { RefObject } from "react";
 
 /**
  * @hook useTitleAnimation
@@ -6,9 +7,11 @@ import { useGSAP, gsap, SplitText } from "@/lib/gsap";
  * It splits the text into characters, animates their opacity and position,
  * and adjusts the position of the "Z" character to keep it centered.
  *
- * @param {any} containerRef - A ref object pointing to the title's container DOM element.
+ * @param {RefObject<HTMLElement | null>} containerRef - A ref object pointing to the title's container DOM element.
  */
-export const useTitleAnimation = (containerRef: any) => {
+export const useTitleAnimation = (
+	containerRef: RefObject<HTMLElement | null>,
+) => {
 	useGSAP(
 		() => {
 			if (!containerRef.current) return;
@@ -19,8 +22,13 @@ export const useTitleAnimation = (containerRef: any) => {
 				charsClass: "char-extra",
 			});
 
-			const zElement = document.querySelector("#z-center");
-			const exTextElement = document.querySelector("#ex-text");
+			// Cast elements to HTMLElement to safely access .offsetWidth
+			const zElement = containerRef.current.querySelector(
+				"#z-center",
+			) as HTMLElement | null;
+			const exTextElement = containerRef.current.querySelector(
+				"#ex-text",
+			) as HTMLElement | null;
 
 			const zWidth = zElement?.offsetWidth || 0;
 			const exWidth = exTextElement?.offsetWidth || 0;
@@ -32,11 +40,11 @@ export const useTitleAnimation = (containerRef: any) => {
 			const timeline = gsap.timeline({
 				scrollTrigger: {
 					trigger: containerRef.current,
-					start: "top top", // Animation starts when the top of the trigger element hits the top of the viewport.
-					end: "+=120%", // The animation duration extends 120% beyond the trigger element's start point.
-					scrub: 1, // Smoothly interpolates the animation progress based on scroll.
-					// markers: true, // Uncomment to show scroll trigger visualization.
-					// invalidateOnRefresh: true, // Uncomment to re-calculate scroll trigger on window resize.
+					start: "top top",
+					end: "+=120%",
+					scrub: 1,
+					// markers: true,
+					// invalidateOnRefresh: true,
 				},
 			});
 
@@ -50,18 +58,18 @@ export const useTitleAnimation = (containerRef: any) => {
 				.to(
 					"#z-center",
 					{
-						x: centerOffset, // Moves the "Z" to the calculated center position.
+						x: centerOffset,
 						ease: "power2.inOut",
 						duration: 1,
 					},
-					"<=0.15", // Staggers this animation to start shortly after the previous one.
+					"<=0.15",
 				)
 				.to("#z-center", {
-					scale: 1.1, // Slightly scales up the "Z".
-					delay: 0.5, // Adds a delay before this scale animation starts.
+					scale: 1.1,
+					delay: 0.5,
 					ease: "power2.inOut",
 				});
 		},
-		{ scope: containerRef }, // Ensures GSAP animations are scoped to the containerRef.
+		{ scope: containerRef },
 	);
 };
